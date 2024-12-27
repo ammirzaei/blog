@@ -1,0 +1,79 @@
+<div
+  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom"
+>
+  <h1 class="h2">آنالیز تمام پست ها</h1>
+</div>
+
+<div class="row mx-auto my-4" style="width: 80%">
+  <canvas id="myChartBar"></canvas>
+</div>
+<div class="row mx-auto my-4" style="width: 80%">
+  <canvas id="myChartLine"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctxBar = document.getElementById("myChartBar");
+  const ctxLine = document.getElementById("myChartLine");
+
+  const blogs = JSON.parse('<%- JSON.stringify(blogs) %>');
+  
+  const colors = [
+    "#fadb47",
+    "#f13438",
+    "#0051ff",
+    "#ff00c3",
+    "#83e981",
+    "#484848",
+    "#6ec8ff",
+    "#b5a5ff",
+    "#07f4fc",
+  ];
+    
+  new Chart(ctxBar, {
+    type: "bar",
+    data: {
+      labels: ["لایک", "سیو", "نظرات"],
+      datasets: blogs?.map((itemBlog, index) => ({
+        label: itemBlog?.title,
+        data: [itemBlog?.likesCount, itemBlog?.savedsCount, itemBlog?.commentsCount],
+        borderWidth: 1,
+        backgroundColor: colors[index],
+        color: colors[index],
+        borderColor: colors[index]
+      })),
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+
+  new Chart(ctxLine, {
+    type: "line",
+    data: {
+      labels: ["لایک", "سیو", "نظرات"],
+      datasets: blogs?.map((itemBlog, index) => ({
+        label: itemBlog?.title,
+        data: [itemBlog?.likesCount, itemBlog?.savedsCount, itemBlog?.commentsCount],
+        borderWidth: 1,
+        backgroundColor: colors[index],
+        color: colors[index],
+        borderColor: colors[index],
+        fill: false,
+        tension: 0.1
+      })),
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+</script>

@@ -1,0 +1,70 @@
+<div
+  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom"
+>
+  <h1 class="h2">داشبورد</h1>
+</div>
+
+<% if(blogs.length > 0) {%>
+  <div class="d-flex align-items-center justify-content-between w-100 mb-3">
+    <div class="d-flex align-items-center" style="gap: 20px;">
+      <h2 class="h3">آخرین پست ها</h2>
+      <a href="/dashboard/add-post" class="btn btn-success btn-md position-relative mb-2">افزودن پست جدید</a>
+    </div>
+    <a href="/dashboard/analysis-all-post" class="btn btn-dark btn-sm position-relative mb-2">آنالیز تمام پست ها</a>
+  </div>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover table-striped table-sm">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>عنوان</th>
+        <th>وضعیت</th>
+        <th>تعداد سیو</th>
+        <th>تعداد لایک</th>
+        <th>تاریخ ایجاد</th>
+        <th>عملیات</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% let num = 0; %> 
+     <% for(const blog of blogs){ %>
+      <% num++ %> 
+      <tr>
+        <td><%= num %> </td>
+        <td>
+          <a href="/blog/<%= blog.id %> " target="_blank"><%= blog.title %> </a>
+        </td>
+        <td>
+          <span class="badge <%= blog.status === 'عمومی' ? 'badge-success':'badge-warning' %> ">
+            <%= blog.status %>
+          </span>
+        </td>
+        <td>
+          <%= blog.saved %>
+        </td>
+        <td>
+          <%= blog.like %>
+        </td>
+        <td><%= formatDateTime(blog.createdAt) %> </td>
+        <td>
+          <a href="/dashboard/comments-post/<%= blog.id %>" class="btn btn-info btn-sm">نظرات</a> |
+          <a href="/dashboard/analysis-post/<%= blog.id %>" class="btn btn-dark btn-sm">آنالیز</a> |
+          <% if(!participtions?.find((item) => item.blog == blog.id)) { %>
+            <a href="/dashboard/participtions-post/<%= blog.id %>" class="btn btn-warning btn-sm">مشارکت ها</a> |
+          <% } %>
+          <a href="/dashboard/edit-post/<%= blog.id %>" class="btn btn-primary btn-sm">ویرایش</a>
+          <% if(!participtions?.find((item) => item.blog == blog.id)) { %>
+            | <a href="#" onclick="confirm('از حذف این پست مطمئن هستید؟') ? location.replace('/dashboard/delete-post/<%= blog.id %>') : ''" class="btn btn-danger btn-sm">حذف</a>
+          <% } %>
+        </td>
+      </tr>
+      <% } %> 
+    </tbody>
+  </table>
+  <%- include('./../includes/pagination.ejs') %>
+</div>
+<% } else { %> 
+  <div class="alert alert-warning text-center">
+    <h5>پستی تا حالا ثبت نکردی!</h5>
+  </div>
+<% } %> 

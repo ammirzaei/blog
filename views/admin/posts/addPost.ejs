@@ -1,0 +1,71 @@
+<div
+  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center text-center pt-3 pb-2 mb-4 border-bottom"
+>
+  <h1 class="h2">ساخت پست جدید</h1>
+  <a class="nav-link d-flex align-items-center btn btn-sm btn-outline-secondary" href="#" data-toggle="modal" data-target="#imageUploadModal">
+    <span class="fa fa-upload mr-3"></span>
+    آپلود تصویر
+  </a>
+</div>
+
+<div class="d-flex align-items-center justify-content-center pb-4">
+    <form action="/dashboard/add-post" method="POST" autocomplete="on" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="title">عنوان پست</label>
+            <input
+                type="text"
+                class="form-control w-50"
+                name="title"
+                id="title"
+            />
+            <small id="title" class="form-text text-danger text-left"><%= errors.find(e=> e.name === 'title') ? errors.find(e=>e.name === 'title').message: '' %> </small>
+        </div>
+
+        <div class="form-group">
+            <label for="image">عکس پست</label>
+           <div class="custom-file">
+               <input
+                   type="file"
+                   name="image"
+                   id="image"
+                   class="custom-file-input" 
+               />
+            <label for="image" class="custom-file-label">عکس پست را انتخاب کنید</label>
+            <small id="image" class="form-text text-danger text-left"><%= errors.find(e=> e.name === 'image.name' || e.name === 'image.size' || e.name === 'image.mimetype') ? errors.find(e=> e.name === 'image.name' || e.name === 'image.size' || e.name === 'image.mimetype').message: '' %> </small>
+           </div>
+           <div class="my-2">
+            <img src="" id="imagePreview" class="imagePreview">
+           </div>
+        </div>
+
+        <div class="form-group">
+            <label for="status">وضعیت پست</label>
+            <select name="status" class="form-control w-25" id="status">
+                <option value="عمومی" selected>عمومی</option>
+                <option value="خصوصی">خصوصی</option>
+            </select>
+            <small id="status" class="form-text text-danger text-left"><%= errors.find(e=> e.name === 'status') ? errors.find(e=>e.name === 'status').message: '' %> </small>
+        </div>
+
+        <div class="form-group">
+            <label for="shortDescription">توضیحات کوتاه پست</label>
+            <textarea name="shortDescription" class="form-control" id="shortDescription" rows="3"></textarea>
+            <small id="shortDescription" class="form-text text-danger text-left"><%= errors.find(e=> e.name === 'shortDescription') ? errors.find(e=>e.name === 'shortDescription').message: '' %> </small>
+        </div>
+
+        <div class="form-group">
+            <label for="body">متن پست</label>
+            <textarea name="body" class="form-control" id="body"></textarea>
+            <small id="body" class="form-text text-danger text-left"><%= errors.find(e=> e.name === 'body') ? errors.find(e=>e.name === 'body').message: '' %> </small>
+        </div>
+
+        <div class="row mt-2">
+            <input type="submit" value="ساخت پست" class="btn btn-success m-2" />
+            <a href="/dashboard" class="btn btn-warning m-2">انصراف</a>
+        </div>
+    </form>
+</div>
+<%- include('../../includes/imageUpload.ejs') %> 
+
+<script src="https://cdn.ckeditor.com/4.20.1/full/ckeditor.js"></script>
+<script src="/js/post.js"></script>

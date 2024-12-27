@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+      <div class="col-12">
+        <h2 class="my-4 pb-2 font-weight-bolder" style="border-bottom: 2px solid #3766d2; font-size: 22px; width: fit-content;">آخرین پست ها</h2>
+      </div>
+      <% for(const blog of blogs) {%>
+        <div class="col-lg-12 my-2">
+          <a href="/blog/<%= blog.id %>" target="_blank" class="text-decoration-none" style="color: #000;">
+            <div class="card p-3 card-container-blog" style="height: 200px;">
+              <div class="d-flex align-items-start justify-content-between card-blog" style="gap: 20px;">
+                <div class="w-100">
+                  <div class="d-flex align-items-center position-relative card-blog-user" style="gap: 10px;">
+                      <img src="/uploads/user/<%= blog.user.avatar %>" style="width: 40px; height: 40px; border-radius: 50%;" class="user-avatar" />
+                      <span style="font-size: 17px;" class="user-fullname"><%= blog.user.fullName %></span>
+                      <span style="color: #6e6e6e;font-size: 14px;" class="user-date"><%= formatDateTime(blog.createdAt) %></span>
+                  </div>
+                  <h2 class="card-title font-weight-bolder mt-3 card-blog-title" style="font-size: 19px;"><%= blog.title %> </h2>
+                  <p class="card-text card-blog-text" style="color: #606060; font-size: 15px;"><%= truncateString(blog.shortDescription, 150) %> </p>
+                </div>
+                <img src="/uploads/blogs/<%= blog.image %> " class="rounded-lg card-blog-image" alt="<%= blog.title %> " style="height: 160px; width: 160px;">
+              </div>
+            </div>
+          </a>
+        </div>     
+      <% } %> 
+      <div class="col-lg-12 my-2 text-center">
+        <a href="/blogs" class="btn btn-primary">مشاهده بیشتر</a>
+      </div>
+  </div>
+  <div class="row my-4">
+    <div class="col-12">
+      <h2 class="my-4 pb-2 font-weight-bolder" style="border-bottom: 2px solid #3766d2; font-size: 22px; width: fit-content;">دنبال کننده ترین نویسندگان</h2>
+    </div>
+    <% for(const user of users) { %>
+      <div class="col-lg-3 my-1">
+        <a href="/user/<%= user.id %>" target="_blank" class="text-decoration-none" style="color: #000;">
+          <div class="w-100 border rounded-lg p-3 d-flex flex-column bg-white align-items-center" style="gap: 6px;">
+            <img src="/uploads/user/<%= user.avatar %>" style="width: 80px; height: 80px; border-radius: 50%;" class="shadow-sm" />
+            <span style="font-size: 17px;" class="font-weight-bolder"><%= user?.fullName %></span>
+            <span style="color: #6e6e6e;font-size: 14px;"><%= user?.bio %></span>
+            <span class="text-primary mt-3 border border-primary px-4 py-1 rounded-lg" style="font-size: 15px;"><%= user.follower %> دنبال کننده</span>
+          </div>
+        </a>
+      </div>
+    <% } %>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<link rel="shortcut icon" href="/fovicon.ico" type="image/x-icon" />
+
+<link rel="stylesheet" href="/css/styles.css" />
+<link rel="stylesheet" href="/css/bootstrap-rtl.min.css" />
+<link rel="stylesheet" href="/css/font-awesome.min.css" />
+<% if(path === '/user') { %>
+    <link rel="stylesheet" href="/css/login.css">
+    <script src="https://www.google.com/recaptcha/api.js?hl=fa" async defer></script>
+<% } %> 
+<% if(path.includes('/dashboard')){ %>
+    <link rel="stylesheet" href="/css/dashboard.css">
+<% } %> 

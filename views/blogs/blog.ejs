@@ -1,0 +1,152 @@
+<link rel="stylesheet" href="/css/blog.css">
+
+<div class="row mx-auto mt-2 blog-row" style="width: 90%;">
+    <div class="w-100 d-flex flex-row align-items-center justify-content-between border mb-3 bg-white rounded-lg p-2 blog-user">
+        <div class="d-flex align-items-center position-relative" style="gap: 10px; right: 20px;">
+            <a href="/user/<%= blog.user.id %>" style="color: #000;" target="_blank">
+                <img src="/uploads/user/<%= blog.user.avatar %>" style="width: 55px; height: 55px; border-radius: 50%;" class="blog-user-avatar" />
+            </a>
+            <div class="d-flex flex-column" style="gap: 1px;">
+                <a href="/user/<%= blog.user.id %>" style="color: #000;" target="_blank">
+                    <span style="font-size: 17px;"><%= blog.user.fullName %></span>
+                </a>
+                <span style="color: #6e6e6e;font-size: 15px;"><%= formatDate(blog.createdAt) %></span>
+            </div>
+        </div>
+        <div class="d-flex flex-row align-items-center" style="gap: 8px;">
+            <div class="link-social" onclick="copyLink('<%= blog.id %>')">
+                <i class="fa fa-link"></i>
+            </div>
+            <div class="link-like text-danger" onclick="onLiked('<%= blog.id %>')">
+                <% if(liked) { %>
+                    <i class="fa fa-heart text-danger" id="like-icon"></i>
+                <% } else { %>
+                    <i class="fa fa-heart-o text-danger" id="like-icon"></i>
+                <% } %>
+                <span id="likeCount"><%= likeCount %></span>
+            </div>
+            <div class="link-saved" onclick="onSaved('<%= blog.id %>')">
+                <% if(saved) { %>
+                    <i class="fa fa-circle" id="saved-icon"></i>
+                    <span id="saved-text">حذف سیو</span>
+                <% } else { %>
+                    <i class="fa fa-circle-o" id="saved-icon"></i>
+                    <span id="saved-text">سیو کردن</span>
+                <% } %>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9 col-sm-12 px-4">
+        <article class="mt-2">
+            <header class="mb-4">
+                <h1 class="fw-bolder mb-2 h2 blog-title"><%= blog.title %> </h1>
+            </header>
+            <figure class="mb-3 text-center"><img class="img-fluid rounded-lg w-75 blog-image" style="height: 500px;" src="/uploads/blogs/<%= blog.image %> " alt="<%= blog.title %> "></figure>
+            <section class="mb-4">
+                <%= blog.shortDescription %> 
+                </section>
+            <section class="mb-5 section-body">
+                <%- blog.body %> 
+            </section>
+            <section class="border-top w-100 py-4 my-2">
+                <h3 class="text-center h3">
+                    نظرات
+                    <% if(comments.length > 0) { %>
+                        <span class="text-primary" style="font-size: 15px;">(<%= comments.length %> نظر)</span>
+                    <% } %>
+                </h3>
+                <div class="border rounded-lg p-3 mt-4 bg-white" style="cursor: pointer;" id="submit-comment">
+                    <div class="w-100 d-flex align-items-center" style="gap: 12px">
+                        <img src="/img/avatar-default.jpg" class="rounded-pill" width="50" height="50"/>
+                        <span style="color: #6e6e6e; font-size: 18px;">نظر خود را درمورد این پست بنویسید</span>
+                    </div>
+                    <form id="form-comment" class="w-100 d-none mt-4">
+                        <input type="hidden" value="<%= blog.id %>" id="blog-id">
+                        <div class="form-group">
+                            <textarea name="comment-message" class="form-control" id="comment-message" rows="3" placeholder="متن نظر"></textarea>
+                            <small id="comment-message-error" class="form-text text-danger text-left"></small>
+                        </div>
+                        <div class="w-100 d-flex align-items-center justify-content-between">
+                            <div class="g-recaptcha position-relative" id="g-recaptcha" style="right: 10px;" data-sitekey="6LeqpqkjAAAAAG_VvMDHr_kIdEK8kR0DcNUImDPy"></div>
+                            <div class="w-25">
+                                <button class="btn btn-primary btn-block" type="submit">ثبت نظر</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+               
+                <div class="mt-5" id="comments-list">
+                    <% for(const comment of comments) { %>
+                        <div class="w-100 border rounded-lg p-3 mt-2 bg-white">
+                            <div class="d-flex align-items-center" style="gap: 10px;">
+                                <img src="/uploads/user/<%= comment.user.avatar %>" style="width: 55px; height: 55px; border-radius: 50%;" />
+                                <div class="d-flex flex-column" style="gap: 0px;">
+                                    <span style="font-size: 15px;"><%= comment.user.fullName %></span>
+                                    <span style="color: #6e6e6e;font-size: 14px; position: relative; bottom: 5px;"><%= formatDateTime(comment.createdAt) %></span>
+                                </div>
+                            </div>
+                            <div class="px-4 py-3">
+                                <span><%= comment?.message %></span>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+            </section>
+        </article> 
+    </div>   
+    <div class="col-lg-3 col-sm-12 p-0">
+        <div class="profile-fixed">
+            <div class="w-100 border rounded-lg p-3 d-flex flex-column bg-white" style="gap: 16px;">
+                <div class="d-flex align-items-center" style="gap: 10px;">
+                    <img src="/uploads/user/<%= blog.user.avatar %>" style="width: 80px; height: 80px; border-radius: 50%;" />
+                    <div class="d-flex flex-column" style="gap: 4px;">
+                        <a href="/user/<%= blog.user.id %>" target="_blank" style="color: #000;"><span style="font-size: 17px; font-weight: 600;"><%= blog.user.fullName %></span></a>
+                        <span style="color: #929292;font-size: 13px;"><%= blog.user.bio %></span>
+                    </div>
+                </div>  
+                <span class="text-primary font-weight-bolder position-relative" style="right: 12px;" id="user-follower"><%= blog.user.follower %> دنبال کننده</span>
+                <% if(!followSelf) { %>
+                    <% if(followed) { %>
+                        <button class="btn btn-outline-primary rounded-lg" onclick="onFollowed('<%= blog.user.id %>')" id="user-btn-follower">لغو دنبال کردن</button>
+                    <% } else { %>
+                        <button class="btn btn-primary rounded-lg" onclick="onFollowed('<%= blog.user.id %>')" id="user-btn-follower">دنبال کردن</button>
+                    <% } %>
+                <% } %>
+            </div>
+            <% if(!followSelf) { %>
+                <div class="w-100 border rounded-lg p-3 d-flex flex-column bg-white mt-2" style="gap: 10px;">
+                    <span class="font-weight-bolder">
+                        درخواست مشارکت
+                    </span>
+                    <span style="color: #868686;font-size: 14px;">با ثبت درخواست مشارکت میتوانید در صورت تایید نویسنده، سهمی در نوشتن این پست داشته باشید.</span>
+                    <% if(particiption) { %>
+                        <% if(particiption.status) { %>
+                            <button class="btn btn-outline-success rounded-lg disabled" style="pointer-events: none;">درخواست شما تایید شده است</button>
+                        <% } else { %>
+                            <button class="btn btn-outline-warning rounded-lg disabled" style="pointer-events: none;">درخواست شما ارسال شده است</button>
+                        <% } %>
+                    <% } else { %>
+                        <button class="btn btn-warning rounded-lg" id="submit-particiption" onclick="onSubmitParticiption('<%= blog.id %>')">ثبت درخواست</button>
+                    <% } %>
+                </div>
+            <% } %>
+            <% if(suggesteds.length > 0) { %>
+                <div class="w-100 border rounded-lg p-3 d-flex flex-column bg-white mt-2" style="gap: 16px;">
+                    <span class="font-weight-bolder">پست های پیشنهادی نویسنده</span>
+                    <ul>
+                        <% for(const suggested of suggesteds) { %>
+                            <% if(suggested.suggested?.id) { %>
+                                <li class="w-100 my-1">
+                                    <a class="text-primary" style="font-size: 14px; cursor: pointer;"  target="_blank" href="/blog/<%= suggested.suggested.id %>"><%= suggested.suggested.title %></a>
+                                </li>
+                            <% } %>
+                        <% } %>
+                    </ul>
+                </div>
+            <% } %>
+        </div>
+    </div>  
+</div>
+
+<script src="/js/blog.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?hl=fa" async defer></script>

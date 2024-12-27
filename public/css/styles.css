@@ -1,0 +1,74 @@
+@font-face {
+  font-family: "BYekan";
+  src: url("../fonts/BYekan-webfont.eot") format("eot"),
+    url("../fonts/BYekan-webfont.woff") format("woff"),
+    url("../fonts/BYekan-webfont.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: "BYekan" !important;
+  background-color: #f8f8f8 !important;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+.starter-template {
+  padding: 3rem 1.5rem;
+  padding-top: 4rem;
+}
+
+.custom-file-input ~ .custom-file-label::after {
+  content: "انتخاب عکس" !important;
+}
+
+.imagePreview {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 10px;
+  display: none;
+}
+.contact{
+  width: 50%;
+}
+@media screen and (max-width: 768px) {
+  .starter-template {
+    padding: 3rem 0;
+  }
+  .card-container-blog {
+    height: 400px !important;
+    padding: 0.5rem !important;
+  }
+  .card-blog{
+    flex-direction: column;
+  }
+  .card-blog-user{
+    gap: 6px !important;
+    white-space: pre;
+  }
+  .user-avatar{
+    width: 30px !important;
+    height: 30px !important;
+  }
+  .user-fullname{
+    font-size: 15px !important;
+  }
+  .user-date{
+    font-size: 13px !important;
+  }
+  .card-blog-title{
+    font-size: 17px !important;
+  }
+  .card-blog-text{
+    font-size: 14px !important;
+  }
+  .card-blog-image{
+    width: 100% !important;
+  }
+  .contact{
+    width: 100% !important;
+  }
+}

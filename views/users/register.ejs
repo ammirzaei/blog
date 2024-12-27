@@ -1,0 +1,56 @@
+<form class="form-signin text-center" action="/register" method="post">
+    <img class="mb-4" src="/img/blogger.png" alt="" width="72" height="72" />
+    <h1 class="h3 mb-3 font-weight-normal">ثبت نام</h1>
+    <%- include('../includes/userMessages.ejs') %> 
+    <label for="inputFullName" class="sr-only">نام و نام خانوادگی</label>
+    <input
+      type="text"
+      name="fullName"
+      id="inputFullName"
+      class="form-control mb-1"
+      placeholder="نام و نام خانوادگی"
+      required
+      autofocus
+      aria-describedby="fullNameErr"
+    />
+      <small id="fullNameErr" class="form-text text-danger text-left"><%= errors.find(e=>e.name == 'fullName')  ? errors.find(e=>e.name == 'fullName').message : '' %> </small>
+    <label for="inputEmail" class="sr-only">ایمیل</label>
+    <input
+      type="email"
+      name="email"
+      id="inputEmail"
+      class="form-control mb-1"
+      placeholder="ایمیل"
+      aria-describedby="emailErr"
+      required
+      autofocus
+    />
+      <small id="emailErr" class="form-text text-danger text-left"><%= errors.find(e=>e.name == 'email')  ? errors.find(e=>e.name == 'email').message : '' %> </small>
+    <label for="inputPassword" class="sr-only">رمز عبور</label>
+    <input
+      type="password"
+      name="password"
+      id="inputPassword"
+      class="form-control mb-1"
+      aria-describedby="passwordErr"
+      placeholder="رمز عبور"
+      required
+    />
+      <small id="passwordErr" class="form-text text-danger text-left"><%= errors.find(e=>e.name == 'password')  ? errors.find(e=>e.name == 'password').message : '' %> </small>
+    <label for="inputRePassword" class="sr-only">تکرار رمز عبور</label>
+    <input
+      type="password"
+      name="repassword"
+      id="inputRePassword"
+      class="form-control mb-1" 
+      placeholder="تکرار رمز عبور"
+      aria-describedby="repasswordErr"
+      required
+    />
+      <small id="repasswordErr" class="form-text text-danger text-left"><%= errors.find(e=>e.name == 'repassword')  ? errors.find(e=>e.name == 'repassword').message : '' %> </small>
+   
+    <div class="g-recaptcha my-3" data-sitekey="6LeqpqkjAAAAAG_VvMDHr_kIdEK8kR0DcNUImDPy"></div>
+    <a href="/login">اکانت کاربری دارم</a>
+    <button class="btn btn-lg btn-primary btn-block mt-2" type="submit">ثبت نام</button>
+  </form>
+  

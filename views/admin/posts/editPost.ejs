@@ -1,0 +1,91 @@
+<div
+  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center text-center pt-3 pb-2 mb-4 border-bottom"
+>
+  <h1 class="h2">ویرایش پست</h1>
+  <a class="nav-link d-flex align-items-center btn btn-sm btn-outline-secondary" href="#" data-toggle="modal" data-target="#imageUploadModal">
+    <span class="fa fa-upload mr-3"></span>
+    آپلود تصویر
+  </a>
+</div>
+
+<div class="d-flex align-items-center justify-content-center pb-4">
+    <form action="/dashboard/edit-post/<%= blog.id %>" method="POST" autocomplete="on" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="title">عنوان پست</label>
+            <input
+                type="text"
+                class="form-control w-50"
+                name="title"
+                id="title"
+                value="<%= blog.title %>"
+            />
+            <small id="title" class="form-text text-danger text-left"><%= errors.find(e=> e.name === 'title') ? errors.find(e=>e.name === 'title').message: '' %> </small>
+        </div>
+
+        <div class="form-group">
+            <label for="image">عکس پست</label>
+           <div class="custom-file">
+               <input
+                   type="file"
+                   name="image"
+                   id="image"
+                   class="custom-file-input" 
+               />
+            <label for="image" class="custom-file-label">عکس پست را انتخاب کنید</label>
+            <small id="image" class="form-text text-danger text-left"><%= errors.find(e=> e.name === 'image.name' || e.name === 'image.size' || e.name === 'image.mimetype') ? errors.find(e=> e.name === 'image.name' || e.name === 'image.size' || e.name === 'image.mimetype').message: '' %> </small>
+           </div>
+           <div class="my-2">
+            <img src="/uploads/blogs/<%= blog.image %> " alt="<%= blog.title %> " id="imagePreview" class="imagePreview" style="display: block;">
+           </div>
+        </div>
+
+        <div class="form-group">
+            <label for="status">وضعیت پست</label>
+            <select name="status" class="form-control w-25" id="status">
+                <option value="عمومی" <%= blog.status === 'عمومی' ? 'selected' : '' %> >عمومی</option>
+                <option value="خصوصی" <%= blog.status === 'خصوصی' ? 'selected' : '' %>>خصوصی</option>
+            </select>
+            <small id="status" class="form-text text-danger text-left"><%= errors.find(e=> e.name === 'status') ? errors.find(e=>e.name === 'status').message: '' %> </small>
+        </div>
+
+        <div class="form-group">
+            <label for="shortDescription">توضیحات کوتاه پست</label>
+            <textarea name="shortDescription" class="form-control" id="shortDescription" rows="8"><%= blog.shortDescription %> </textarea>
+            <small id="shortDescription" class="form-text text-danger text-left"><%= errors.find(e=> e.name === 'shortDescription') ? errors.find(e=>e.name === 'shortDescription').message: '' %> </small>
+        </div>
+
+        <div class="form-group">
+            <label for="body">متن پست</label>
+            <textarea name="body" class="form-control" id="body" style="height: 500px;"><%= blog.body %> </textarea>
+            <small id="body" class="form-text text-danger text-left"><%= errors.find(e=> e.name === 'body') ? errors.find(e=>e.name === 'body').message: '' %> </small>
+        </div>
+
+        <% if(posts.length > 0 && !particiption) { %>
+            <div class="form-group">
+                <div class="w-100 border rounded-lg p-2 d-flex align-items-center" style="gap: 8px; cursor: pointer;" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <span>اتصال پست های پیشنهادی</span>
+                    <i class="fa fa-angle-down"></i>
+                </div>
+                <div class="collapse mt-1" id="collapseExample">
+                    <div class="card card-body">
+                    <% for(const suggest of posts) { %>
+                            <div class="custom-control custom-checkbox m-1">
+                                <input type="checkbox" class="custom-control-input" id="customCheck<%= suggest.id %>" <%= suggesteds?.find((item) => item.suggested == suggest.id) ? 'checked' : '' %> name="suggest-<%= suggest.id %>">
+                                <label class="custom-control-label" for="customCheck<%= suggest.id %>"><%= suggest.title %></label>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+
+        <div class="row mt-1">
+            <input type="submit" value="ویرایش پست" class="btn btn-primary m-2" />
+            <a href="/dashboard" class="btn btn-warning m-2">انصراف</a>
+        </div>
+    </form>
+</div>
+
+<%- include('../../includes/imageUpload.ejs') %> 
+<script src="//cdn.ckeditor.com/4.20.1/full/ckeditor.js"></script>
+<script src="/js/post.js"></script>

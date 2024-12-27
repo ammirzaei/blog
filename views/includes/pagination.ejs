@@ -1,0 +1,23 @@
+<% if(pagination.lastPage > 1) { %>
+    <nav aria-label="pagination">
+        <ul class="pagination justify-content-center">
+            <li class="page-item <%= pagination.hasPreviousPage ? '' : 'disabled' %> ">
+                <a class="page-link" href="?pageId=<%= pagination.previousPage %> ">قبلی</a>
+            </li>
+            <% for(let pageId = 1; pageId <= pagination.lastPage; pageId++){ %>
+                <% if(pageId === pagination.currentPage) { %>
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link"><%= pageId %></span>
+                    </li>
+                <% } else {%> 
+                    <li class="page-item" aria-current="page">        
+                        <a class="page-link" href="?pageId=<%= pageId %>"><%= pageId %></a>
+                    </li>
+                <% } %> 
+            <% } %> 
+            <li class="page-item <%= pagination.hasNextPage ? '' : 'disabled' %> ">
+                <a class="page-link" href="?pageId=<%= pagination.nextPage %> ">بعدی</a>
+            </li>
+        </ul>
+    </nav>
+<% } %>

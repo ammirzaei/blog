@@ -1,0 +1,49 @@
+<div
+  class="d-flex flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom"
+  style="gap: 25px;"
+>
+  <h1 class="h2">پروفایل</h1>
+  <span class="text-primary font-weight-bolder" style="font-size: 17px;"><%= user.follower %> دنبال کننده</span>
+</div>
+
+<div class="d-flex align-items-center justify-content-center">
+    <form action="/dashboard/edit-profile" method="POST" autocomplete="on" enctype="multipart/form-data" style="width: 50%;">
+        <div class="form-group">
+            <label for="fullName">نام کامل</label>
+            <input
+                type="text"
+                class="form-control w-75"
+                name="fullName"
+                id="fullName"
+                value="<%= user.fullName %>"
+            />
+            <small id="fullName" class="form-text text-danger text-left"><%= errors.find(e=> e.name === 'fullName') ? errors.find(e=>e.name === 'fullName').message: '' %> </small>
+        </div>
+        <div class="form-group">
+            <label for="bio">بایو</label>
+            <textarea name="bio" class="form-control" id="bio" rows="2"><%= user.bio %> </textarea>
+            <small id="bio" class="form-text text-danger text-left"><%= errors.find(e=> e.name === 'bio') ? errors.find(e=>e.name === 'bio').message: '' %> </small>
+        </div>
+        <div class="form-group">
+            <label for="avatar">عکس پروفایل</label>
+           <div class="custom-file">
+               <input
+                   type="file"
+                   name="avatar"
+                   id="image"
+                   class="custom-file-input" 
+               />
+            <label for="avatar" class="custom-file-label">عکس پروفایل را انتخاب کنید</label>
+            <small id="avatar" class="form-text text-danger text-left"><%= errors.find(e=> e.name === 'fullName.name' || e.name === 'fullName.size' || e.name === 'fullName.mimetype') ? errors.find(e=> e.name === 'fullName.name' || e.name === 'fullName.size' || e.name === 'fullName.mimetype').message: '' %> </small>
+           </div>
+           <div class="my-2">
+            <img src="/uploads/user/<%= user.avatar %> " alt="<%= user.fullName %> " id="imagePreview" class="imagePreview" style="display: block;">
+           </div>
+        </div>
+
+        <div class="row">
+            <input type="submit" value="ویرایش اطلاعات" class="btn btn-primary m-2" />
+        </div>
+    </form>
+</div>
+<script src="/js/imagePreview.js"></script>

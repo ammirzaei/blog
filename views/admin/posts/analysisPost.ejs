@@ -1,0 +1,67 @@
+<div
+  class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom"
+>
+  <h1 class="h2">آنالیز پست</h1>
+</div>
+<div class="d-flex align-items-center mb-3" style="gap: 20px">
+  <h2 class="h3"><%= blog.title %></h2>
+</div>
+
+<div class="row mx-auto my-4" style="width: 80%">
+  <canvas id="myChartBar"></canvas>
+</div>
+<div class="row mx-auto my-4" style="width: 80%">
+    <canvas id="myChartLine"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  const ctxBar = document.getElementById("myChartBar");
+  const ctxLine = document.getElementById("myChartLine");
+
+  new Chart(ctxBar, {
+    type: "bar",
+    data: {
+      labels: ["لایک", "سیو", "نظرات"],
+      datasets: [
+        {
+          label: "تعداد",
+          data: ['<%= likesCount %>', '<%= savedsCount %>', '<%= commentsCount %>'],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+
+  new Chart(ctxLine, {
+    type: "line",
+    data: {
+      labels: ["لایک", "سیو", "نظرات"],
+      datasets: [
+        {
+          label: "تعداد",
+          data: ['<%= likesCount %>', '<%= savedsCount %>', '<%= commentsCount %>'],
+          borderWidth: 1,
+          backgroundColor: '#fadb47',
+          color: '#fadb47',
+          borderColor: '#fadb47'
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+</script>
