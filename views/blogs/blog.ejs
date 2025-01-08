@@ -113,6 +113,20 @@
                     <% } %>
                 <% } %>
             </div>
+            <% if(participtions?.length > 0) { %>
+                <div class="w-100 border rounded-lg p-3 d-flex flex-column bg-white mt-2" style="gap: 10px;">
+                    <span class="font-weight-bolder">
+                        مشارکت کنندگان
+                    </span>
+                    <div class="d-flex align-items-center" style="gap: 6px;">
+                        <% for(const par of participtions) { %> 
+                            <a target="_blank" href="/user/<%= par.user.id %>" title="<%= par.user.fullName %>">
+                                <img src="/uploads/user/<%= par?.user?.avatar %>" class="rounded-pill border p-1" style="width: 60px; height: 60px;" />
+                            </a>
+                        <% } %>
+                    </div>
+                </div>
+            <% } %>
             <% if(!followSelf) { %>
                 <div class="w-100 border rounded-lg p-3 d-flex flex-column bg-white mt-2" style="gap: 10px;">
                     <span class="font-weight-bolder">

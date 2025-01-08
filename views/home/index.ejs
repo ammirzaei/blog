@@ -37,7 +37,7 @@
           <div class="w-100 border rounded-lg p-3 d-flex flex-column bg-white align-items-center" style="gap: 6px;">
             <img src="/uploads/user/<%= user.avatar %>" style="width: 80px; height: 80px; border-radius: 50%;" class="shadow-sm" />
             <span style="font-size: 17px;" class="font-weight-bolder"><%= user?.fullName %></span>
-            <span style="color: #6e6e6e;font-size: 14px;"><%= user?.bio %></span>
+            <span style="color: #6e6e6e;font-size: 14px;"><%= user?.bio || '...' %></span>
             <span class="text-primary mt-3 border border-primary px-4 py-1 rounded-lg" style="font-size: 15px;"><%= user.follower %> دنبال کننده</span>
           </div>
         </a>

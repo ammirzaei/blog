@@ -136,7 +136,6 @@ module.exports.postRegister = async (req, res) => {
             });
         }
 
-        // const hash = await bcrypt.hash(password, 10);
         await User.create({
             fullName,
             email,
@@ -150,30 +149,6 @@ module.exports.postRegister = async (req, res) => {
 
         req.flash('Success', 'ثبت نام شما با موفقیت انجام شد');
         res.redirect('/login');
-
-
-        // bcrypt.genSalt(10, (err, salt) => {
-        //     if (err) throw err;
-        //     bcrypt.hash(password, salt, async (err, hash) => {
-        //         if (err) throw err;
-        //         await User.create({
-        //             fullName,
-        //             email,
-        //             password: hash
-        //         });
-        //         res.redirect('/login');
-        //     });
-        // });
-
-        // // database code
-        // const userN = new User({ // instance from user
-        //     fullName : req.body.fullName,
-        //     email : req.body.email,
-        //     password : req.body.password
-        // });
-        // await userN.save().then(()=>{
-        //     res.redirect('/login');
-        // });
     } catch (err) {
         err.inner.forEach(error => {
             errors.push({

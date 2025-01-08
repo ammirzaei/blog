@@ -1,6 +1,7 @@
 # Custom
 public/uploads/img/*
 public/uploads/blogs/*
+public/uploads/user/*
 
 # Logs
 logs

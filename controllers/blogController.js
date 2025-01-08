@@ -14,7 +14,7 @@ const { truncateString } = require("./../utils/helpers");
 module.exports.getAllBlogs = async (req, res) => {
     try {
         const pageId = +req.query.pageId || 1;
-        const blogPerPage = 10;
+        const blogPerPage = 6;
        
         let blogsCount;
         let blogs;
@@ -92,6 +92,7 @@ module.exports.getBlog = async (req, res) => {
             const suggesteds = await Suggested.find({ blog: blog.id }).populate('suggested');
             const likeCount = await Like.count({ blog: blog.id });
             const comments = await Comment.find({ blog: blog.id }).populate('user');
+            const participtions = await Particiption.find({ blog: blogID, status: true }).populate('user');
 
             res.render('blogs/blog', {
                 pageTitle: blog.title,
@@ -105,6 +106,7 @@ module.exports.getBlog = async (req, res) => {
                 likeCount,
                 comments,
                 particiption,
+                participtions,
                 formatDate,
                 formatDateTime,
                 isAuthenticated: req.isAuthenticated()
